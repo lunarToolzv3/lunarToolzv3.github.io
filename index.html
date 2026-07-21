@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WW7 Hub - Scripts Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0f111a;
+            color: #ffffff;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 10px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #00ffc8;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #8a8d9b;
+            font-size: 1rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            width: 100%;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px 18px;
+            background-color: #1a1c29;
+            border: 2px solid #2d314d;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-container input:focus {
+            border-color: #00ffc8;
+            box-shadow: 0 0 10px rgba(0, 255, 200, 0.3);
+        }
+
+        /* Fixed grid layout: 2 columns max */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .card {
+            background-color: #1a1c29;
+            border: 1px solid #2d314d;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffc8;
+        }
+
+        .card-banner {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #2d314d;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            color: #fff;
+        }
+
+        .badge {
+            position: relative;
+            background: #252836;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ffc832;
+            border: 1px solid #3d4260;
+        }
+
+        .badge-universal {
+            color: #00ffc8;
+            border-color: #00ffc8;
+        }
+
+        .badge .tooltip {
+            visibility: hidden;
+            width: 130px;
+            background-color: #0a0a0f;
+            color: #ffc832;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            right: 0;
+            font-size: 0.75rem;
+            border: 1px solid #ffc832;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .badge:hover .tooltip,
+        .badge:active .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .card p {
+            color: #8a8d9b;
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-copy {
+            background-color: #00965a;
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background-color: #00b36b;
+        }
+
+        .btn-copy.copied {
+            background-color: #2ecc71;
+        }
+
+        .btn-game {
+            background-color: #0064b4;
+            color: white;
+        }
+
+        .btn-game:hover {
+            background-color: #007ce6;
+        }
+
+        .discord-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background-color: #5865F2;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        .discord-btn:hover {
+            transform: scale(1.1);
+            background-color: #4752C4;
+        }
+
+        .discord-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: #ffffff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: auto;
+            padding: 40px 0 10px 0;
+            color: #555970;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 12px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-banner {
+                height: 150px;
+            }
+
+            .discord-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+            }
+
+            .discord-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>WW7 SCRIPTS HUB</h1>
+        <p>Find all official scripts from the WW7 community.</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for a script..." onkeyup="filterScripts()">
+    </div>
+
+    <div class="grid" id="scriptGrid">
+        <!-- Card 1: Become A Deep Sea Explorer -->
+        <div class="card" data-name="become a deep sea explorer">
+            <img src="deep_sea.png" alt="Become A Deep Sea Explorer" class="card-banner">
+            <div class="card-body">
+                <div>
+                    <div class="card-header">
+                        <h3>Become A Deep Sea Explorer</h3>
+                        <div class="badge">
+                            KEY
+                            <span class="tooltip">Key in discord server</span>
+                        </div>
+                    </div>
+                    <p>Official script for Become A Deep Sea Explorer on Roblox.</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet('https://gist.githubusercontent.com/lunarToolzv3/22b2d2953d3569ad73c2ca1728ed4df8/raw/6454bbe12da9c6e466fba33b55120fce45594fca/ww7%2520deep%2520sea%2520free%2520F'))()`)">Copy Script</button>
+                    <a href="https://www.roblox.com/games/113909829646571/Become-a-Deep-Sea-Explorer" target="_blank" class="btn btn-game">Game Page</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Awesome Bike Life -->
+        <div class="card" data-name="awesome bike life">
+            <img src="bike_life.png" alt="Awesome Bike Life" class="card-banner">
+            <div class="card-body">
+                <div>
+                    <div class="card-header">
+                        <h3>Awesome Bike Life</h3>
+                    </div>
+                    <p>Official script for Awesome Bike Life on Roblox.</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet('https://gist.githubusercontent.com/lunarToolzv3/36a3aea258a7eda5e63e1eb288eda577/raw/5abf31818480f1075c6a990568bc87eb11cf03cb/Awesome%2520Bike%2520life%2520Free'))()`)">Copy Script</button>
+                    <a href="https://www.roblox.com/games/138533716930160/Awesome-Bike-Life" target="_blank" class="btn btn-game">Game Page</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Anti AFK -->
+        <div class="card" data-name="anti afk universal">
+            <img src="anti_afk.png" alt="Anti AFK" class="card-banner">
+            <div class="card-body">
+                <div>
+                    <div class="card-header">
+                        <h3>Anti AFK</h3>
+                        <div class="badge badge-universal">Universal</div>
+                    </div>
+                    <p>Universal anti-AFK script compatible with all Roblox games.</p>
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-copy btn-full" onclick="copyScript(this, `loadstring(game:HttpGet('https://gist.githubusercontent.com/lunarToolzv3/f007fc34364507ef8d7e63a9d1bb0c66/raw/b7364d349f80153bdba297dcff402b249d0e4859/anti%2520afk%2520obf%2520ww7'))()`)">Copy Script</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Discord Button -->
+    <a href="YOUR_DISCORD_SERVER_LINK" target="_blank" class="discord-btn" aria-label="Join Discord">
+        <svg viewBox="0 0 24 24">
+            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .079.009c.12.098.245.195.372.288a.077.077 0 0 1-.006.127c-.598.35-1.22.652-1.873.893a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+        </svg>
+    </a>
+
+    <footer>
+        &copy; 2026 WW7 Hub. All rights reserved.
+    </footer>
+
+    <script>
+        function filterScripts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "flex";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+        function copyScript(button, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                let originalText = button.innerText;
+                button.innerText = "Copied!";
+                button.classList.add("copied");
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove("copied");
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>
