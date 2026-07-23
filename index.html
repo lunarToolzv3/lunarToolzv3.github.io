@@ -25,23 +25,24 @@
 
         header {
             text-align: center;
-            padding: 30px 10px;
+            padding: 30px 10px 15px 10px;
         }
 
         header h1 {
             font-size: 2.2rem;
             color: #00ffc8;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         header p {
             color: #8a8d9b;
             font-size: 1rem;
+            text-transform: lowercase;
         }
 
         .search-container {
             max-width: 600px;
-            margin: 0 auto 30px auto;
+            margin: 20px auto 30px auto;
             width: 100%;
         }
 
@@ -169,8 +170,7 @@
         }
 
         .btn {
-            flex: 1;
-            padding: 12px 8px;
+            padding: 12px 16px;
             border: none;
             border-radius: 8px;
             font-weight: 600;
@@ -188,23 +188,73 @@
         .btn-copy {
             background-color: #00965a;
             color: white;
+            flex: 1;
         }
 
         .btn-copy:hover {
             background-color: #00b36b;
         }
 
-        .btn-copy.copied {
-            background-color: #2ecc71;
-        }
-
         .btn-game {
             background-color: #0064b4;
             color: white;
+            flex: 1;
         }
 
         .btn-game:hover {
             background-color: #007ce6;
+        }
+
+        .btn-discord {
+            background-color: #5865F2;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-discord:hover {
+            background-color: #4752C4;
+        }
+
+        /* Banner Obfuscation Service (positionné en bas) */
+        .service-card {
+            max-width: 900px;
+            margin: 40px auto 10px auto;
+            width: 100%;
+            background: linear-gradient(135deg, #1a1c29 0%, #152238 100%);
+            border: 2px solid #00ffc8;
+            border-radius: 12px;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 200, 0.15);
+        }
+
+        .service-info h2 {
+            font-size: 1.3rem;
+            color: #00ffc8;
+            margin-bottom: 6px;
+        }
+
+        .service-info p {
+            color: #b0b4c8;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .service-info span {
+            color: #ffc832;
+            font-weight: 600;
+        }
+
+        .service-action {
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
         }
 
         .discord-btn {
@@ -236,7 +286,7 @@
             fill: #ffffff;
         }
 
-        /* Styles pour le popup toast vert */
+        /* Popup toast notification */
         .toast-popup {
             position: fixed;
             bottom: 30px;
@@ -267,19 +317,29 @@
         footer {
             text-align: center;
             margin-top: auto;
-            padding: 40px 0 10px 0;
+            padding: 20px 0 10px 0;
             color: #555970;
             font-size: 0.85rem;
             width: 100%;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             body {
                 padding: 12px;
             }
 
             header h1 {
                 font-size: 1.8rem;
+            }
+
+            .service-card {
+                flex-direction: column;
+                text-align: center;
+                align-items: stretch;
+            }
+
+            .service-action {
+                justify-content: center;
             }
 
             .grid {
@@ -308,7 +368,7 @@
 
     <header>
         <h1>WW7 SCRIPTS HUB</h1>
-        <p>Find all official scripts from the WW7 community.</p>
+        <p>beta website</p>
     </header>
 
     <div class="search-container">
@@ -369,6 +429,17 @@
                     <button class="btn btn-copy btn-full" onclick="copyScript(this, `loadstring(game:HttpGet(&quot;https://gist.githubusercontent.com/fzxholdr/58ed062f927148f0f3959893d9a1a2fc/raw/52481aeb87b0f6926a5e8641ce0522b47dbf995c/anti%2520afk%2520ww7&quot;))()`)">Copy Script</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Section Obfuscation Service (Placée en bas) -->
+    <div class="service-card">
+        <div class="service-info">
+            <h2>Cheap VM Obfuscation Service</h2>
+            <p>Make your scripts completely unstealable with custom VM protection. DM <span>@5eoh</span> on Discord or join our server to get access!</p>
+        </div>
+        <div class="service-action">
+            <a href="https://discord.com/invite/TvcQeZQZsf" target="_blank" class="btn btn-discord">Join Discord</a>
         </div>
     </div>
 
