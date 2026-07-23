@@ -236,6 +236,34 @@
             fill: #ffffff;
         }
 
+        /* Styles pour le popup toast vert */
+        .toast-popup {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #2ecc71;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast-popup.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
         footer {
             text-align: center;
             margin-top: auto;
@@ -303,7 +331,7 @@
                     <p>Become A Deep Sea Explorer fish spawner, infinite free gamepasses.</p>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet("https://gist.githubusercontent.com/fzxholdr/92fcd7cd32199007510ada2861374350/raw/ww7%2520become%2520a%2520deep%2520sea%2520explorer%2520spawner"))()`)">Copy Script</button>
+                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet(&quot;https://gist.githubusercontent.com/fzxholdr/92fcd7cd32199007510ada2861374350/raw/ww7%2520become%2520a%2520deep%2520sea%2520explorer%2520spawner&quot;))()`)">Copy Script</button>
                     <a href="https://www.roblox.com/games/113909829646571/Become-a-Deep-Sea-Explorer" target="_blank" class="btn btn-game">Game Page</a>
                 </div>
             </div>
@@ -320,7 +348,7 @@
                     <p>Roblox Awesome Bike Life infinite money farm</p>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet("https://gist.githubusercontent.com/fzxholdr/4b3102a06e986df531aae6a8bf62df6e/raw/awesome%20bike%20life%20ww7"))()`)">Copy Script</button>
+                    <button class="btn btn-copy" onclick="copyScript(this, `loadstring(game:HttpGet(&quot;https://gist.githubusercontent.com/fzxholdr/4b3102a06e986df531aae6a8bf62df6e/raw/awesome%20bike%20life%20ww7&quot;))()`)">Copy Script</button>
                     <a href="https://www.roblox.com/games/138533716930160/Awesome-Bike-Life" target="_blank" class="btn btn-game">Game Page</a>
                 </div>
             </div>
@@ -338,10 +366,18 @@
                     <p>Universal anti afk kick, useful for auto farms</p>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-copy btn-full" onclick="copyScript(this, `loadstring(game:HttpGet("https://gist.githubusercontent.com/fzxholdr/58ed062f927148f0f3959893d9a1a2fc/raw/52481aeb87b0f6926a5e8641ce0522b47dbf995c/anti%2520afk%2520ww7"))()`)">Copy Script</button>
+                    <button class="btn btn-copy btn-full" onclick="copyScript(this, `loadstring(game:HttpGet(&quot;https://gist.githubusercontent.com/fzxholdr/58ed062f927148f0f3959893d9a1a2fc/raw/52481aeb87b0f6926a5e8641ce0522b47dbf995c/anti%2520afk%2520ww7&quot;))()`)">Copy Script</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Popup Toast Notifications -->
+    <div id="toast" class="toast-popup">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Copied script!</span>
     </div>
 
     <!-- Floating Discord Button -->
@@ -370,17 +406,30 @@
             }
         }
 
+        let toastTimeout;
         function copyScript(button, text) {
             navigator.clipboard.writeText(text).then(() => {
                 let originalText = button.innerText;
                 button.innerText = "Copied!";
                 button.classList.add("copied");
-                
+
+                showToast();
+
                 setTimeout(() => {
                     button.innerText = originalText;
                     button.classList.remove("copied");
                 }, 2000);
             });
+        }
+
+        function showToast() {
+            let toast = document.getElementById('toast');
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
         }
     </script>
 
