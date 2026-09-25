@@ -73,7 +73,6 @@
             flex-grow: 1;
         }
 
-        /* La carte devient un lien stylé (<a>) */
         .card {
             background-color: #1a1c29;
             border: 1px solid #2d314d;
@@ -82,7 +81,6 @@
             transition: transform 0.2s, border-color 0.2s;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             text-decoration: none;
             color: inherit;
         }
@@ -128,6 +126,8 @@
             font-weight: 600;
             color: #ffc832;
             border: 1px solid #3d4260;
+            flex-shrink: 0;
+            margin-left: 10px;
         }
 
         .badge-universal {
@@ -169,6 +169,7 @@
         .button-group {
             display: flex;
             gap: 10px;
+            margin-top: auto;
         }
 
         .btn {
